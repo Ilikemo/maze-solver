@@ -27,26 +27,26 @@ class Cell:
         self.visited = False
 
     def draw(self):
-        self._top_right = Point(self._bottom_right.x, self._top_left.y)
-        self._bottom_left = Point(self._top_left.x, self._bottom_right.y)
+        _top_right = Point(self._bottom_right.x, self._top_left.y)
+        _bottom_left = Point(self._top_left.x, self._bottom_right.y)
         if self._win is None:
             return
         if self.has_left_wall:
-            self._win.draw_line(Line(self._top_left, self._bottom_left), "black")
+            self._win.draw_line(Line(self._top_left, _bottom_left), "black")
         else:
-            self._win.draw_line(Line(self._top_left, self._bottom_left), "white")
+            self._win.draw_line(Line(self._top_left, _bottom_left), "white")
         if self.has_top_wall:
-            self._win.draw_line(Line(self._top_left, self._top_right), "black")
+            self._win.draw_line(Line(self._top_left, _top_right), "black")
         else:
-            self._win.draw_line(Line(self._top_left, self._top_right), "white")
+            self._win.draw_line(Line(self._top_left, _top_right), "white")
         if self.has_right_wall:
-            self._win.draw_line(Line(self._top_right, self._bottom_right), "black")
+            self._win.draw_line(Line(_top_right, self._bottom_right), "black")
         else:
-             self._win.draw_line(Line(self._top_right, self._bottom_right), "white")
+             self._win.draw_line(Line(_top_right, self._bottom_right), "white")
         if self.has_bottom_wall:
-            self._win.draw_line(Line(self._bottom_left, self._bottom_right), "black")
+            self._win.draw_line(Line(_bottom_left, self._bottom_right), "black")
         else:
-            self._win.draw_line(Line(self._bottom_left, self._bottom_right), "white")
+            self._win.draw_line(Line(_bottom_left, self._bottom_right), "white")
 
     def draw_move(self, to_cell, undo=False):
         self._center_point = Point((self._top_left.x + self._bottom_right.x) / 2, (self._top_left.y + self._bottom_right.y) / 2)
@@ -113,9 +113,9 @@ class Maze:
         while True:
             neighbors = {}
             if i > 0 and not self._cells[i - 1][j].visited:
-                neighbors["up"] = (i - 1, j)
+                neighbors["left"] = (i - 1, j)
             if j > 0 and not self._cells[i][j - 1].visited:
-                neighbors["left"] = (i, j - 1)
+                neighbors["up"] = (i, j - 1)
             if i < self._num_cols - 1 and not self._cells[i + 1][j].visited:
                 neighbors["right"] = (i + 1, j)
             if j < self._num_rows - 1 and not self._cells[i][j + 1].visited:
@@ -139,6 +139,11 @@ class Maze:
                 self._cells[next_i][next_j].has_top_wall = False
             self._cells[i][j].draw()
             self._cells[next_i][next_j].draw()
+            self._animate()
             self._break_walls_r(next_i, next_j)
 
-    
+
+    def _reset_cells_visted(self):
+        for i in range(self._num_cols):
+            for j in range(self._num_rows):
+                self._cells[i][j].visited = False

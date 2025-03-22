@@ -72,7 +72,30 @@ class Tests(unittest.TestCase):
         
         self.assertTrue
 
-
+    def test_reset_cells_visited(self):
+        # Create a small test maze with the required arguments
+        # x_margin, y_margin, cols, rows, cell_size_x, cell_size_y
+        x_margin = 10
+        y_margin = 10
+        cols = 2
+        rows = 2
+        cell_size_x = 20
+        cell_size_y = 20
+        
+        maze = Maze(x_margin, y_margin, cols, rows, cell_size_x, cell_size_y)
+        
+        # Mark all cells as visited
+        for row in maze._cells:
+            for cell in row:
+                cell.visited = True
+        
+        # Call the reset method
+        maze._reset_cells_visited()
+        
+        # Check that all cells have visited=False
+        for row in maze._cells:
+            for cell in row:
+                self.assertFalse(cell.visited)
 
 
 if __name__ == "__main__":
