@@ -12,7 +12,7 @@ class Maze:
         self._cell_size_x = cell_size_x
         self._cell_size_y = cell_size_y
         self._win = win
-        if seed is None:
+        if seed is not None:
             random.seed(seed)
         self._cells = []
         self._create_cells()
@@ -47,7 +47,7 @@ class Maze:
         if self._win is None:
             return
         self._win.redraw()
-        time.sleep(0.05)
+        time.sleep(0.001)
 
     def _break_entrance_and_exit(self):
         self._cells[0][0].has_top_wall = False
@@ -113,6 +113,7 @@ class Maze:
         if j < self._num_rows - 1 and not self._cells[i][j].has_bottom_wall and not self._cells[i][j + 1].visited:
             directions.append("down")
         if len(directions) == 0:
+            time.sleep(.05)
             return False
         random.shuffle(directions)
         for direction in directions:
