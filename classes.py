@@ -62,6 +62,7 @@ class Maze:
             collumn = []
             for j in range(self._num_rows):
                 
+            self.cells.append(collumn)
         
     
 
