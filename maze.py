@@ -47,7 +47,7 @@ class Maze:
         if self._win is None:
             return
         self._win.redraw()
-        time.sleep(0.001)
+        time.sleep(0.0001)
 
     def _break_entrance_and_exit(self):
         self._cells[0][0].has_top_wall = False
@@ -104,18 +104,18 @@ class Maze:
         if i == self._num_cols - 1 and j == self._num_rows - 1:
             return True
         directions = []
-        if i > 0 and not self._cells[i][j].has_left_wall and not self._cells[i - 1][j].visited:
-            directions.append("left")
-        if j > 0 and not self._cells[i][j].has_top_wall and not self._cells[i][j - 1].visited:
-            directions.append("up")
         if i < self._num_cols - 1 and not self._cells[i][j].has_right_wall and not self._cells[i + 1][j].visited:
             directions.append("right")
         if j < self._num_rows - 1 and not self._cells[i][j].has_bottom_wall and not self._cells[i][j + 1].visited:
             directions.append("down")
+        if j > 0 and not self._cells[i][j].has_top_wall and not self._cells[i][j - 1].visited:
+            directions.append("up")
+        if i > 0 and not self._cells[i][j].has_left_wall and not self._cells[i - 1][j].visited:
+            directions.append("left")
+        
+        
         if len(directions) == 0:
-            time.sleep(.05)
             return False
-        random.shuffle(directions)
         for direction in directions:
             if direction == "left":
                 self._cells[i][j].draw_move(self._cells[i - 1][j])

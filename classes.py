@@ -33,19 +33,19 @@ class Cell:
         if self.has_left_wall:
             self._win.draw_line(Line(self._top_left, _bottom_left), "black")
         else:
-            self._win.draw_line(Line(self._top_left, _bottom_left), "white")
+            self._win.draw_line(Line(self._top_left, _bottom_left), "light gray")
         if self.has_top_wall:
             self._win.draw_line(Line(self._top_left, _top_right), "black")
         else:
-            self._win.draw_line(Line(self._top_left, _top_right), "white")
+            self._win.draw_line(Line(self._top_left, _top_right), "light gray")
         if self.has_right_wall:
             self._win.draw_line(Line(_top_right, self._bottom_right), "black")
         else:
-             self._win.draw_line(Line(_top_right, self._bottom_right), "white")
+             self._win.draw_line(Line(_top_right, self._bottom_right), "light gray")
         if self.has_bottom_wall:
             self._win.draw_line(Line(_bottom_left, self._bottom_right), "black")
         else:
-            self._win.draw_line(Line(_bottom_left, self._bottom_right), "white")
+            self._win.draw_line(Line(_bottom_left, self._bottom_right), "light gray")
 
     def draw_move(self, to_cell, undo=False):
         self._center_point = Point((self._top_left.x + self._bottom_right.x) / 2, (self._top_left.y + self._bottom_right.y) / 2)
@@ -53,6 +53,6 @@ class Cell:
         if undo is False:
             color = "red"
         else:
-            color = "gray"
+            color = "white"
         self._win.draw_line(Line(self._center_point, to_cell._center_point), color)
         
